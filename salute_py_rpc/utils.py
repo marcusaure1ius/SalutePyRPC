@@ -32,7 +32,7 @@ class Session:
             data={
                 'scope': 'SALUTE_SPEECH_PERS'
             },
-            verify='../russiantrustedca.pem'
+            verify=os.path.abspath('../russiantrustedca.pem')
         )
 
         json_response = request.json()

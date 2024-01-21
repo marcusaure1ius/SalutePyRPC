@@ -23,7 +23,7 @@ def request_synthesis(input_text, access_token):
         },
         data=input_text.encode(),
         stream=False,
-        verify='../russiantrustedca.pem'
+        verify=os.path.abspath('../russiantrustedca.pem')
     )
     output = b''
     for chunk in resp.iter_content(None):
