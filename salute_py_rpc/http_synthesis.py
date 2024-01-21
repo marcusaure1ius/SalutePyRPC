@@ -26,7 +26,7 @@ def request_synthesis(input_text, access_token):
         },
         data=input_text.encode(),
         stream=False,
-        verify='russiantrustedca.pem'
+        verify='../russiantrustedca.pem'
     )
 
     output = b''
