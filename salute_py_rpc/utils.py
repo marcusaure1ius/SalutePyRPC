@@ -39,8 +39,8 @@ class Session:
         access_token = json_response['access_token']
         expires_at = json_response['expires_at']
 
-        set_key(dotenv_path='.env', key_to_set='access_token', value_to_set=access_token)
-        set_key(dotenv_path='.env', key_to_set='expires_at', value_to_set=expires_at, quote_mode="never")
+        set_key(dotenv_path='../.env', key_to_set='access_token', value_to_set=access_token)
+        set_key(dotenv_path='../.env', key_to_set='expires_at', value_to_set=expires_at, quote_mode="never")
 
         return access_token
 

@@ -33,7 +33,7 @@ def request_synthesis(input_text, access_token):
     for chunk in resp.iter_content(None):
         output += chunk
 
-    with wave.open("sound.wav", "wb") as wf:
+    with wave.open("../sound.wav", "wb") as wf:
         wf.setnchannels(1)
         wf.setsampwidth(2)
         wf.setframerate(24000)
