@@ -52,7 +52,7 @@ class Session:
         delta = token_timestamp - current_timestamp
 
         if delta < 0:
-            new_access_token = self.__refresh_access_token()
+            new_access_token = self.__refresh_access_token(path_to_ca)
             return new_access_token
         else:
             return access_token
