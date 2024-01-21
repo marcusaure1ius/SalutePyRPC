@@ -21,7 +21,7 @@ class Session:
 
         return request_uuid
 
-    def __refresh_access_token(self):
+    def __refresh_access_token(self, path_to_ca):
         request = requests.post(
             self.oauth_url,
             headers={
@@ -32,7 +32,7 @@ class Session:
             data={
                 'scope': 'SALUTE_SPEECH_PERS'
             },
-            verify=os.path.abspath('../russiantrustedca.pem')
+            verify=path_to_ca
         )
 
         json_response = request.json()
@@ -44,7 +44,7 @@ class Session:
 
         return access_token
 
-    def get_or_refresh_access_token(self):
+    def get_or_refresh_access_token(self, path_to_ca=os.path.abspath('../russiantrustedca.pem')):
         access_token, token_expires_timestamp = self.__get_current_auth_values()
 
         token_timestamp = int(token_expires_timestamp)

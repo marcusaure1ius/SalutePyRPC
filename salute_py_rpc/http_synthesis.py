@@ -6,10 +6,10 @@ from utils import Session
 SAMPLE_TEXT = """Это очень маленький текст"""
 
 session = Session()
-token = session.get_or_refresh_access_token()
+token = session.get_or_refresh_access_token(path_to_ca=os.path.abspath('../russiantrustedca.pem'))
 
 
-def request_synthesis(input_text, access_token):
+def request_synthesis(input_text, access_token, path_to_ca=os.path.abspath('../russiantrustedca.pem')):
     BASE_URL = 'https://smartspeech.sber.ru/rest/v1/text:synthesize'
     resp = requests.post(
         BASE_URL,
@@ -23,7 +23,7 @@ def request_synthesis(input_text, access_token):
         },
         data=input_text.encode(),
         stream=False,
-        verify=os.path.abspath('../russiantrustedca.pem')
+        verify=path_to_ca
     )
     output = b''
     for chunk in resp.iter_content(None):
