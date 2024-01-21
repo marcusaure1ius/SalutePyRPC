@@ -6,7 +6,7 @@ from dotenv import set_key, load_dotenv
 
 
 class Session:
-    load_dotenv()
+    load_dotenv('../.env')
     oauth_url = 'https://ngw.devices.sberbank.ru:9443/api/v2/oauth'
     auth_data = os.environ.get('AUTH_DATA')
 
@@ -32,7 +32,7 @@ class Session:
             data={
                 'scope': 'SALUTE_SPEECH_PERS'
             },
-            verify='russiantrustedca.pem'
+            verify='../russiantrustedca.pem'
         )
 
         json_response = request.json()
@@ -51,7 +51,7 @@ class Session:
         current_timestamp = datetime.datetime.now().timestamp() * 1000
         delta = token_timestamp - current_timestamp
 
-        if delta > 0:
+        if delta < 0:
             new_access_token = self.__refresh_access_token()
             return new_access_token
         else:
