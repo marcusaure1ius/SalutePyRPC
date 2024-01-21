@@ -2,9 +2,6 @@ import wave
 import requests
 from utils import Session
 
-
-
-BASE_URL = 'https://smartspeech.sber.ru/rest/v1/text:synthesize'
 SAMPLE_TEXT = """ПСБ предоставил частным инвесторам новый сервис «Фундаментальные показатели эмитентов» для оценки потенциальной эффективности инструментов фондового рынка. 
 
 Сервис отражает мультипликаторы и финансовые показатели компаний и позволяет инвестору использовать метод фундаментального анализа при принятии инвестиционных решений.
@@ -14,20 +11,22 @@ SAMPLE_TEXT = """ПСБ предоставил частным инвестора
 session = Session()
 token = session.get_or_refresh_access_token()
 
+
 def request_synthesis(input_text, access_token):
+    BASE_URL = 'https://smartspeech.sber.ru/rest/v1/text:synthesize'
     resp = requests.post(
-            BASE_URL,
-            headers={
-                'Authorization': f'Bearer {access_token}',
-                'Content-Type': 'application/text'
-            },
-            params={
-                'format': 'wav16',
-                'voice': 'Bys_24000'
-            },
-            data=input_text.encode(),
-            stream=False,
-            verify='russiantrustedca.pem'
+        BASE_URL,
+        headers={
+            'Authorization': f'Bearer {access_token}',
+            'Content-Type': 'application/text'
+        },
+        params={
+            'format': 'wav16',
+            'voice': 'Bys_24000'
+        },
+        data=input_text.encode(),
+        stream=False,
+        verify='russiantrustedca.pem'
     )
 
     output = b''
@@ -39,5 +38,6 @@ def request_synthesis(input_text, access_token):
         wf.setsampwidth(2)
         wf.setframerate(24000)
         wf.writeframesraw(output)
+
 
 request_synthesis(SAMPLE_TEXT, token)
